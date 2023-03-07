@@ -19,11 +19,15 @@
 // a. Require the `dotenv` and `ethers` packages.
 // Hint: As you did in file 1_wallet and 2_provider.
 
-// Your code here!
+require("dotenv").config();
+const { Wallet } = require("ethers");
+const ethers = require("ethers");
+
 
 // b. Create a Goerli provider.
-
-// Your code here!
+const provKey = process.env.INFURA_KEY;
+const goerliUrl = process.env.INFURA_GOERLI_API_URL;
+const goerliProv = new ethers.JsonRpcProvider (goerliUrl + provKey);
 
 // Exercise 1. Create a Signer.
 ///////////////////////////////
@@ -38,18 +42,37 @@
 
 // Hint: a signer is a wallet.
 // Hint2: if you get an error here, check that the private key begins with "0x".
+const metakey = process.env.METAMASK_1_PRIVATE_KEY;
+const metaadd = process.env.METAMASK_1_ADDRESS;
+const signer = new ethers.Wallet(process.env.METAMASK_1_PRIVATE_KEY);
 
-// Your code here!
+console.log("signer : " , signer);
+
 
 // Exercise 2. Sign something.
 //////////////////////////////
 
 const sign = async (message = 'Hello world') => {
+    const signature = await signer.signMessage(message);
+    const verify = ethers.verifyMessage(message, signature);
+
+    console.log("address : " + signer.address);
+    console.log("verification : " + verify);
+    console.log("signature : " + signature);
+
+    if (signer.address === verify) {
+        console.log("Signer Address is VERIFIED");
+    }
+    else {
+        console.log("Signer Address is NOT VERIFIED");
+    }
+
+    let 
+
     
-    // Your code here!
 };
 
-// sign();
+sign();
 
 // Exercise 3. Connect to the blockchain. 
 /////////////////////////////////////////
