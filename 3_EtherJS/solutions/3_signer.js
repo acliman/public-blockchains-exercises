@@ -55,7 +55,7 @@ const sign = async (message = 'Hello world') => {
     const signature = await signer.signMessage(message);
 
     const verifiedSigner = ethers.verifyMessage(message, signature);
-    
+     
     if (verifiedSigner === signer.address) {
         console.log('Signature is valid.');
     }
