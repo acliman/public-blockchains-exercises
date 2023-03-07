@@ -47,7 +47,7 @@ const ethers = require("ethers");
 const provKey = process.env.INFURA_KEY;
 const mainNet = process.env.INFURA_MAINNET_API_URL;
 // console.log("this is mainNet :" , mainNet)
-// console.log("this is provkey :" , provKey)
+// console.log("this is provkey :" , provKey) 
 
 const mainnetProvider = new ethers.JsonRpcProvider(mainNet + provKey);
 
