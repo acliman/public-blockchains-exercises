@@ -144,8 +144,8 @@ console.log("Exercise ", exercise)
 
 require("dotenv").config();
 function check() {
-  const metapk = process.env.METAMASK_2_PRIVATE_KEY;
-  const metaadd = process.env.METAMASK_2_ADDRESS;
+  const metapk = process.env.METAMASK_1_PRIVATE_KEY;
+  const metaadd = process.env.METAMASK_1_ADDRESS;
   if (metapk === "") {
     console.log("Metamask Private Key is empty! ISI WOY!");
   }
