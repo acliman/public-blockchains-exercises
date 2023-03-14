@@ -57,7 +57,7 @@ b = 2;
 c = 3;
 
 // b. Hint: This function needs a name after the word function.
-function lala() {
+function sayHello() {
   console.log("Hello!");
 }
 
@@ -86,9 +86,9 @@ function lala() {
 // a new cursor, so you can write multiple rows at once. Delete the word "not"
 // and replace the explanation mark with a sad face.
 
-catchMeIfYouCan1 = "You did catch me :(";
-catchMeIfYouCan2 = "You did catch me :(";
-catchMeIfYouCan3 = "You did catch me :(";
+catchMeIfYouCan1 = "You did catch me!";
+catchMeIfYouCan2 = "You did catch me!";
+catchMeIfYouCan3 = "You did catch me!";
 
 // d. Sometimes you want to move an entire line of code up or down. Of course
 // there is a shortcut for that: Alt-ArrowUp/Down.
