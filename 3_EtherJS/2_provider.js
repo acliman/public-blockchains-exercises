@@ -307,7 +307,8 @@ const balance = async (ensName = "unima.eth") => {
   let unimabcrslv2 = await goerliProv.getBalance(unimaAddress);
   console.log('Unima Balance Resolved 2 : ', formatEther(unimabcrslv2), 'ETH');
   let vbbc = await goerliProv.getBalance('vitalik.eth');
-  console.log('Vitalik Balance : ', vbbc);
+  console.log('Vitalik Balance : ', formatEther(vbbc), 'ETH') ;
+  //tambahin your own wallet nas
 };
 
 balance();

@@ -67,7 +67,7 @@ const sign = async (message = 'Hello world') => {
         console.log("Signer Address is NOT VERIFIED");
     }
 
-    let 
+    //let 
 
     
 };
@@ -85,10 +85,15 @@ sign();
 
 const connect = async() => {
     
-    // Your code here!
+    let newSigner = await signer.connect(goerliProv);
+    console.log('Signer connect :', newSigner);
+
+    let nonce = await signer.getNonce();
+    console.log('Nonce :', nonce);
+
 };
 
-// connect();
+connect();
 
 // c. Replace the signer created above at exercise 1 with one that takes the 
 // Goerli provider as second parameter. This is necessary even

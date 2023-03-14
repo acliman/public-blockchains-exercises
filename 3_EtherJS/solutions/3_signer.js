@@ -55,6 +55,9 @@ const sign = async (message = 'Hello world') => {
     const signature = await signer.signMessage(message);
 
     const verifiedSigner = ethers.verifyMessage(message, signature);
+
+    //console.log('signature :' , signature)
+    console.log('signer address:', signer.address)
      
     if (verifiedSigner === signer.address) {
         console.log('Signature is valid.');
@@ -71,11 +74,11 @@ const sign = async (message = 'Hello world') => {
         console.log('Tampered signature is valid.');
     }
     else {
-        console.log('Tampered signature is NOT valid.');
+        console.log('Tampered signature is NOT valid.'); //resultnya jadi ini karena message nya diganti jadi invalid
     }
 };
 
-// sign();
+sign();
 
 // Exercise 3. Connect to the blockchain. 
 /////////////////////////////////////////
@@ -88,15 +91,15 @@ const sign = async (message = 'Hello world') => {
 
 const connect = async() => {
     signer = await signer.connect(goerliProvider);
-    // console.log(signer);
+    console.log(signer);
 
     let nonce = await signer.getNonce();
     // Equivalent to.
-    // let nonce = await goerliProvider.getTransactionCount("unima.eth");
+    //let nonce = await goerliProvider.getTransactionCount("unima.eth");
     console.log('The nonce is', nonce);
 };
 
-// connect();
+connect();
 
 // c. Replace the signer created above at exercise 1 with one that takes the 
 // Goerli provider as second parameter. This is necessary even
