@@ -46,8 +46,10 @@ const ethers = require("ethers");
 const providerKey = process.env.INFURA_KEY;
 
 const mainnetInfuraUrl = `${process.env.INFURA_MAINNET}${providerKey}`;
-// console.log(mainnetInfuraUrl);
+
 const mainnetProvider = new ethers.JsonRpcProvider(mainnetInfuraUrl);
+
+// console.log(mainnetInfuraUrl);
 
 // b. Verify that the network's name is "mainnet" and the chain id that theis 1.
 
@@ -121,8 +123,12 @@ const blockNum = async () => {
 // the difference in chain length with mainnet.
 
 const goerliInfuraUrl = `${process.env.INFURA_GOERLI}${providerKey}`;
+// https://goerli.infura.io/v3/61a9180aad0c4352ab5e59cbfb2667d6
+
 // console.log(goerliInfuraUrl);
+
 const goerliProvider = new ethers.JsonRpcProvider(goerliInfuraUrl);
+// https://goerli.infura.io/v3/61a9180aad0c4352ab5e59cbfb2667d6
 
 
 // Look up the current block number in Mainnet and Goerli.
@@ -353,7 +359,7 @@ const linkABI = require('../link_abi.json');
 
 // Now your task. Get the balance for LINK for "unima.eth" and "vitalik.eth".
 // Hint: you need first to create a Contract object via `ethers.Contract`, 
-// then invoke the appropriate smart contract method.
+// then invoke (call) the appropriate smart contract method.
 // Hint2: want to try it with your own address? Get some LINK ERC20 tokens here: 
 // https://faucets.chain.link/goerli
 

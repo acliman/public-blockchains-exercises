@@ -6,7 +6,7 @@
 
 
 // Exercise 1. Add the Goerli Network.
-//////////////////////////////////////
+////////////////////////////////////// 
 
 // Add the Goerli network by updating the hardhat.config.js file following
 // the instructions here:
@@ -31,7 +31,7 @@
 // c. Check the deployed Lock2 contract on Etherscan.
 
 
-// d. Interact with it as you like.
+// d. Interact with it as you like. 
 
 // Exercise 2. Verify your Goerli contract on Etherscan.
 ////////////////////////////////////////////////////////

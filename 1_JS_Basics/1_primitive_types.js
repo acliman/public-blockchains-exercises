@@ -92,19 +92,19 @@ console.log(typeof undefined);
 // of the city of Luzern as reported by Wikipedia Eng. as of 03.06.2020.
 
 // a. Compute (18 + 107) / (5 * 25)
-
+let a = ((18 + 107) / (5 * 25));
 console.log(a);
 
 // b. Compute the square root of one million.
-
+let b = ((1000000)^(1/2))
 console.log(b);
 
 // c. Take the remainder of the division betwen 123 and 9 squared, minus 1.
-
+let c = (123%9^2)-1
 console.log(c);
 
 // d. Take the integer part of the float number 2.123456789 (need to use Math).
-
+let d = Math.floor(2.123456789)
 console.log(d);
 
 // Now compute:

@@ -23,8 +23,7 @@
 const hre = require("hardhat");
 console.log('Hardhat\'s default network:', hre.config.defaultNetwork);
 
-return;
-
+// return;
 
 // Exercise 1. Understand Ethers in Hardhat.
 ////////////////////////////////////////////
@@ -37,18 +36,21 @@ return;
 
 // a. Require ethers and print the version of Ethers, just to be sure.
 
-// Your code here!
-
-return;
+const ethers = require("ethers")
+console.log('Ethers version : ', ethers.version)
+ 
+//return;
 
 // b. Hardhat uses v5 because it offers a plugin that is a wrapped version of
 // Ethers which makes things a little easier. This is available under
 // hre.ethers (require statement above).
 // Print the version of this plugin, it should be the same as above.
 
-// Your code here!
+const hardhatUrl = 'http://127.0.0.1:8545/';
+// const hardhatProvider = new ethers.JsonRpcProvider(hardhatUrl);
+console.log('Plugin\'s version : ', hre.ethers.version)
 
-return;
+//return;
 
 // Exercise 1. Create a new Solidity contract.
 //////////////////////////////////////////////
@@ -65,10 +67,10 @@ return;
 // the name of the contract inside the file. Go on and rename the contract
 // name "Lock" into "Lock2" inside both "Lock2.sol" and "deploy2.js".
 
-// d. Deploy the "new" contract.
+// d. Deploy the "new" contract. 
 
 // Exercise 2. Interact with your new Solidity contract (READ).
-///////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
 
 // If you remember from 3_EtherJS/2_signer.js, to interact with a smart 
 // contract you need three pieces of information:
@@ -82,7 +84,7 @@ return;
 // a. Update with your contract's name and address.
 // Hint: The address is known only after deployment.
 const contractName = "Lock2";
-const contractAddress = "FILL_THIS_VALUE";
+const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 // Let's continue inside the async main function (the recommended Hardhat
 // pattern of execution).
@@ -92,23 +94,24 @@ async function main() {
   // b. Get the first of the default Hardhat signers. Print its address, and
   // checks that it matches the first address printed to console when you
   // execute: npx hardhat node
-  // Hint: hre.ethers.getSigners() returns an array.
+  const signer = await hre.ethers.getSigners();
+  const hhSigner = signer[0]
+  console.log('HH signer address : ', hhSigner);
 
-  // Your code here!
-
-  return;
+  // return;
 
   // c. Get your new contract. Hardhat Ethers automatically fetches the ABI from
   // the artifacts, so you don't need to specify it. Use the method
   // hre.ethers.getContractAt(<name>, <address>, <signer>)
   // then print the contract address.
 
-  // Your code here!
+  const lock = await hre.ethers.getContractAt(contractName, contractAddress, hhSigner)
+  console.log('Contract Name : ', contractName, 'Contract Address : ',lock.address)
 
-  return;
+  // return;
 
   // d. Bonus. You can get the contract also without Hardhat's wrapped Ethers.
-  // The standard (here V5) Ethers.JS requires a bit more code, but is is 
+  // The standard (here V5) Ethers.JS requires a bit more code, but it is 
   // useful to understand how it works.
 
   const getContractManual = async(signer = hhSigner, 
@@ -117,16 +120,13 @@ async function main() {
     // d.1 Fetch the ABI from the artifacts 
     // (it expects contract name = file name).
 
-    // Your code here!
+    const lock2ABI = require("../artifacts/contracts/"+contractName+".sol/"+contractName+".json").abi;
 
     // d.2 Create the contract and print the address.
+    const lock = new ethers.Contract(address,lock2ABI,signer) ;
+    console.log(contractName + " address standard Ethers", lock.address);
 
-    // Your code here!
-
-    // const lock = ... ;
-
-    return lock;
-
+  return lock;
   };
 
   // const lock2 = await getContractManual();
@@ -138,7 +138,8 @@ async function main() {
       
     // Print the owner of the lock.
    
-    // Your code here!
+    const owner = await lock.owner();
+    console.log('Lock of : ', contractName, ' Owner :', owner)
 
     // Print the unlock time. 
     // Be careful! You will get a BigInt, you need first
@@ -147,10 +148,18 @@ async function main() {
     // https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
     // https://stackoverflow.com/questions/53970655/how-to-convert-bigint-to-number-in-javascript
 
-    // Your code here!
+    let unlockTime = await lock.unlockTime();
+    unlockTime = Number(unlockTime);
+    let date = new Date(unlockTime * 1000); // ini harusnya sama kyk mentioned di unlockTime kan ya? (???)
+    var hours = date.getHours();
+    var mins = "0" + date.getMinutes();
+    var sec = "0" + date.getSeconds();
+    console.log("Unlock time : ", hours, ":", mins.substr(-2), ":", sec.substr(-2)); // ini -2 buat eliminate 2 digits ya (???)
+    console.log("Unlock date : ", date);
+
   };
 
-  // await readContract();
+  await readContract();
 
   // Exercise 3. Interact with your new Solidity contract (WRITE).
   ////////////////////////////////////////////////////////////////
@@ -164,11 +173,21 @@ async function main() {
   // the reason why.
 
   const withdrawAttempt1 = async (lockContract = lock) => {
-        
-    // Your code here!
+    
+    let b1 = await hhSigner.getBalance();
+    b1 = ethers.utils.formatEther(b1);
+    console.log("Balance before withdrawal : ", b1)
+
+    await lockContract.withdraw();
+    console.log("Withdrawing from contract")
+
+    let b2 = await hhSigner.getBalance();
+    b2 = ethers.utils.formatEther(b2);
+    console.log("Balance after withdrawal : ", b2)
+
   };
 
-  // await withdrawAttempt1();
+  await withdrawAttempt1();
   
   // Exercise 3. Remove the check for unlock date (WRITE).
   ////////////////////////////////////////////////////////////////////
@@ -190,8 +209,8 @@ async function main() {
     // const newLock = await getContractManual(hhSigner, newContractAddress);
     
     // Can also print:
-    // console.log(newLock.address);
-    // await readContract(newLock);  
+    console.log("New Address : ", newLock.address);
+    await readContract(newLock);  
 
     await withdrawAttempt1(newLock);
   };
@@ -210,7 +229,7 @@ async function main() {
   const triggerNotOwner = async () => {
     
     // b.1 Add the RPC url as shown after starting `npx hardhat node`
-    const hardhatUrl = "FILL_THIS_VALUE";
+    const hardhatUrl = "http://127.0.0.1:8545";
     // v5
     const hardhatProvider = new ethers.providers.JsonRpcProvider(hardhatUrl);
     // For your reference, in v6 we used:

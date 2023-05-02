@@ -24,7 +24,11 @@ printMyName();
 // input parameter and prints a sentence containing the name. For instance:
 // printSentence('Brendan');
 // 'Brendan is great!'.
+function printSentence(firstName) {
+    console.log(firstName + ' is great!')
+}
 
+printSentence('Brendan')
 
 // b. Modify the printSentence function so that it takes an object of the
 // type you createed in the "Objects and loops" exercise and compose a
@@ -36,7 +40,7 @@ printMyName();
 // the brendan object from Exercise Sheed 2 here.
 
 function printSentence(person) {
-    // Add code here
+    console.log(person.first + ' ' + person.last + ' was born in ' + person.year)
 }
 personObject = { first: 'Brendan', last: 'Eich', year: 1961 };
 printSentence(personObject);
@@ -47,11 +51,25 @@ printSentence(personObject);
 // Hint: use the ternary operator ? for a more compact function.
 
 function printSentence2(person1, person2) {
-    // Add code here.
+     if (person1.year > person2.year) {
+        console.log(person1.first + ' ' + person1.last + ' was born in ' + person1.year)
+     } else {
+        console.log(person2.first + ' ' + person2.last + ' was born in ' + person2.year)
+     }
 }
 brendan = { first: 'Brendan', last: 'Eich', year: 1961 };
 linus = { first: 'Linus', last: 'Torvalds', year: 1969 };
 printSentence2(brendan, linus);
+
+
+function printSentence3(person1, person2) {
+    let person = person1.year > person2.year ? person1 : person2;
+    console.log(person.first + ' ' + person.last + ' was born in ' + person.year)
+}
+brendan = { first: 'Brendan', last: 'Eich', year: 1961 };
+linus = { first: 'Linus', last: 'Torvalds', year: 1969 };
+//printSentence3(brendan, linus);
+
 
 // EXERCISE 2. Return values.
 /////////////////////////////
@@ -65,6 +83,11 @@ printSentence2(brendan, linus);
 // the second one prints it.
 // Hint: combine the return statement and the ternary operator for a one-liner.
 
+function younger(person1, person2) {
+    return person1.year > person2.year ? person1 : person2;
+}
+y = younger(brendan, linus);
+printSentence3(y);
 
 // EXERCISE 3 Scope.
 ////////////////////

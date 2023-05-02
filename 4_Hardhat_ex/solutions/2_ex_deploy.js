@@ -4,7 +4,7 @@
 // inside the scripts/ directory of a newly inited hardhat project.
 ////////////////////////////////////////////////////////////////////////
 
-// Exercise 0. Learn how to run this file.
+// Exercise 0. Learn how to run this file. 
 //////////////////////////////////////////
 
 // Text below taken from official hardhat template:
@@ -23,7 +23,7 @@
 const hre = require("hardhat");
 console.log('Hardhat\'s default network:', hre.config.defaultNetwork);
 
-return;
+//return;
 
 
 // Exercise 1. Understand Ethers in Hardhat.
@@ -40,7 +40,7 @@ return;
 const ethers = require("ethers");
 console.log("Ethers version:", ethers.version);
 
-return;
+//return;
 
 // b. Hardhat uses v5 because it offers a plugin that is a wrapped version of
 // Ethers which makes things a little easier. This is available under
@@ -129,10 +129,8 @@ async function main() {
     const lock2ABI = require("../artifacts/contracts/" + contractName + 
                             ".sol/" + contractName + ".json").abi;
 
-
     // d.2 Create the contract and print the address.
     const lock = new ethers.Contract(address, lock2ABI, signer);
-
     console.log(contractName + " address standard Ethers", lock.address);
 
     return lock;

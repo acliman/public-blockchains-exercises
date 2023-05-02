@@ -1,13 +1,12 @@
 require("@nomicfoundation/hardhat-toolbox");
-import('hardhat/config').HardhatUserConfig
-
-const path = require('path')
-const res = require('dotenv')
-  .config({ path: path.resolve(__dirname, '..', '.env') });
-
-
-// You may also use Alchemy.
+require('@nomiclabs/hardhat-ethers');
 require("dotenv").config();
+const ethers = require('ethers');
+const provider = new ethers.providers.JsonRpcProvider('http://localhost:8545');
+
+/** @type import('hardhat/config').HardhatUserConfig */
+
+import ('hardhat/config').HardhatUserConfig
 const INFURA_KEY = process.env.INFURA_KEY;
 const INFURA_URL = process.env.INFURA_GOERLI_API_URL;
 const GOERLI_RPC_URL = `${INFURA_URL}${INFURA_KEY}`;
@@ -18,8 +17,10 @@ console.log('------------------------')
 // Beware: NEVER put real Ether into testing accounts.
 const MM_PRIVATE_KEY = process.env.METAMASK_2_PRIVATE_KEY;
 
-/** @type import('hardhat/config').HardhatUserConfig */
-
+module.exports = {
+  solidity: "0.8.18",
+  defaultNetwork: "localhost" 
+};
 
 module.exports = {
   solidity: "0.8.17",
@@ -32,13 +33,13 @@ module.exports = {
       url: GOERLI_RPC_URL,
       accounts: [ MM_PRIVATE_KEY ],
     },
-    unima1: {
-      url: process.env.NOT_UNIMA_URL_2,
-      accounts: [ MM_PRIVATE_KEY ],
-    },
-    unima2: {
-      url: process.env.NOT_UNIMA_URL_2,
-      accounts: [ MM_PRIVATE_KEY ],
-    },
+    // unima1: {
+    //   url: process.env.NOT_UNIMA_URL_2,
+    //   accounts: [ MM_PRIVATE_KEY ],
+    // },
+    // unima2: {
+    //   url: process.env.NOT_UNIMA_URL_2,
+    //   accounts: [ MM_PRIVATE_KEY ],
+    // },
   },
 };

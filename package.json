@@ -1,6 +1,11 @@
 {
   "dependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.2.2",
     "dotenv": "^16.0.3",
-    "ethers": "^6.0.8"
+    "ethers": "^5.7.2"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^1.0.2",
+    "hardhat": "^2.13.0"
   }
 }
