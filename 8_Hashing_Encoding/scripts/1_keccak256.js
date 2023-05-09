@@ -6,7 +6,7 @@ console.log(ethers.version);
 const crypto = require("crypto");
 
 // Update your contract address accordingly.
-const cAddress = "0xe197c90f7544ADC0369a456DC4470ecD32747c33";
+const cAddress = "0x74C60235046D39b829F7F7552B838Fb09CA6e33D";
 const cName = "Assignment2_Template";
 
 const localhostProvider = new ethers.providers.JsonRpcProvider(
@@ -55,9 +55,27 @@ const getAssContract = async (
 
 // Hint: ethers.utils.keccak256
 // Hint2: ethers.utils.toUtf8Bytes
+
+// doKeccak256 = maksudnya lakukan/execute Keccak256 --> define new const
+
 const doKeccak256 = (choice, seed) => {
    
     // Your code here.
+    let hashed = ""
+    // concatenate 
+    if ("undefined" != typeof seed){
+        hashed += seed + "_";
+    }
+    hashed += choice;
+
+    // convert string to bytes
+    hashed = ethers.utils.toUtf8Bytes(hashed);
+    
+    // hash the bytes
+    hashed = ethers.utils.Keccak256(hashed);
+
+    return hashed
+
 };
 
 const testReveal = async () => {
